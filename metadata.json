@@ -1,0 +1,7 @@
+{
+  "name": "DYmartins - Custom Vehicle Framing",
+  "description": "A professional e-commerce platform for high-quality custom car and bike frames with a seamless manual UPI payment flow.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

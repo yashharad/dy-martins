@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { ProductCard } from './components/ProductCard';
@@ -18,6 +17,7 @@ import { SplashScreen } from './components/SplashScreen';
 import { CustomFramingContact } from './components/CustomFramingContact';
 import { ImagePreviewModal } from './components/ImagePreviewModal';
 import { SpecialEditionComingSoon } from './components/SpecialEditionComingSoon';
+import { PremiumSectionPopup } from './components/PremiumSectionPopup';
 import { PRODUCTS, SEGMENTS_INFO, CONTACT_WHATSAPP, UPI_QR_URL } from './constants';
 import { Product, CustomerDetails, CheckoutStep, Order, User, RegisteredUser, ProductSegment } from './types';
 import { ChevronLeft, RefreshCw, RefreshCcw } from 'lucide-react';
@@ -31,6 +31,7 @@ const App: React.FC = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [isAdminView, setIsAdminView] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isPremiumPopupOpen, setIsPremiumPopupOpen] = useState(false);
   const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'pushing'>('idle');
   const [notifications, setNotifications] = useState<ToastNotification[]>([]);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
@@ -210,6 +211,15 @@ const App: React.FC = () => {
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
+  const handleSegmentClick = (id: ProductSegment) => {
+    window.history.pushState(null, '');
+    setActiveSegment(id);
+    if (id === '3d-car-premium') {
+      setIsPremiumPopupOpen(true);
+    }
+    window.scrollTo(0,0);
+  };
+
   const filteredProducts = activeSegment ? PRODUCTS.filter(p => p.segment === activeSegment) : [];
 
   return (
@@ -277,11 +287,7 @@ const App: React.FC = () => {
                           title={seg.title}
                           subtitle={seg.subtitle}
                           image={seg.image}
-                          onClick={() => {
-                            window.history.pushState(null, '');
-                            setActiveSegment(seg.id);
-                            window.scrollTo(0,0);
-                          }}
+                          onClick={() => handleSegmentClick(seg.id)}
                         />
                       ))}
                     </div>
@@ -389,6 +395,11 @@ const App: React.FC = () => {
         onLogin={handleLoginComplete} 
         onSignup={(d) => { setRegistry(prev => [...prev, d]); handleLoginComplete(d.identifier); }} 
         registeredUsers={registry} 
+      />
+
+      <PremiumSectionPopup 
+        isOpen={isPremiumPopupOpen} 
+        onClose={() => setIsPremiumPopupOpen(false)} 
       />
     </div>
   );

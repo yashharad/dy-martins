@@ -1,4 +1,3 @@
-
 import { Product, Review, ProductSegment } from './types';
 
 const generateReviews = (productName: string): Review[] => {
@@ -29,6 +28,9 @@ const generateReviews = (productName: string): Review[] => {
 };
 
 const BASE_IMG_URL = "https://raw.githubusercontent.com/yashharad/images/main/";
+const HW_BASE_URL = "https://raw.githubusercontent.com/yashharad/hot-wheels/main/";
+const METAL_CAR_BASE_URL = "https://raw.githubusercontent.com/yashharad/super-car-3d/main/";
+const PREMIUM_CAR_BASE_URL = "https://raw.githubusercontent.com/yashharad/3d-premium/main/";
 
 export const SEGMENTS_INFO: { id: ProductSegment; title: string; subtitle: string; image: string }[] = [
   { 
@@ -41,19 +43,19 @@ export const SEGMENTS_INFO: { id: ProductSegment; title: string; subtitle: strin
     id: '3d-hotwheels', 
     title: '3D Hotwheels Frame', 
     subtitle: 'Iconic Die-Cast Display', 
-    image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&q=80&w=800' 
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(1).jpeg` 
   },
   { 
     id: '3d-car', 
     title: '3D Metal Car', 
     subtitle: 'Metal Supercars in Depth', 
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800' 
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM%20(1).jpeg` 
   },
   { 
     id: '3d-car-premium', 
     title: '3D Car (Premium)', 
     subtitle: 'Integrated LEDs & Luxury Finish', 
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800' 
+    image: `${PREMIUM_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.15.31%20PM.jpeg` 
   },
   { 
     id: 'special', 
@@ -80,7 +82,6 @@ export const PRODUCTS: Product[] = [
     name: 'Kawasaki Ninja H2',
     segment: 'bike-2d',
     price: 699,
-    // Updated filename based on user feedback that "Kawasaki Ninja H2" was not displaying
     image: `${BASE_IMG_URL}kawasaki%20ninja%20h2.jpg`,
     description: 'Get the superfast Kawasaki Ninja H2 on your wall. High quality design with detailed bike info.',
     specifications: ['Sleek Black Border', 'Premium Finish', 'Clear Specs Display', 'A4 Size'],
@@ -120,157 +121,127 @@ export const PRODUCTS: Product[] = [
   // Segment: 3D Hotwheels Frame
   {
     id: 'hw-3d-1',
-    name: '911 Turbo Display',
+    name: 'Exotic Drift Edition',
     segment: '3d-hotwheels',
-    price: 1499,
-    image: 'https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?auto=format&fit=crop&q=80&w=800',
-    description: 'Premium frame featuring an authentic 1/64 Porsche 911 Turbo.',
-    specifications: ['Collector Case', 'Deep Frame', 'Acrylic Front'],
-    reviews: generateReviews('911 Turbo Display')
+    price: 1299,
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(1).jpeg`,
+    description: 'Premium frame featuring an iconic high-performance drift machine.',
+    specifications: ['Collector Case', 'Deep Frame', 'Acrylic Front', 'Vibrant Backing'],
+    reviews: generateReviews('Exotic Drift Edition')
   },
   {
     id: 'hw-3d-2',
-    name: 'Skyline GTR JDM Frame',
+    name: 'Vintage Speed Art',
     segment: '3d-hotwheels',
-    price: 1599,
-    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80&w=800',
-    description: 'Iconic R34 Skyline in a custom JDM themed background.',
-    specifications: ['Limited Run', 'Dustproof', 'Wall Mountable'],
-    reviews: generateReviews('Skyline GTR JDM Frame')
+    price: 1199,
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM.jpeg`,
+    description: 'Classic automotive speed captured in a detailed 3D die-cast display.',
+    specifications: ['Retro Aesthetic', 'Dustproof Acrylic', 'Wall Mountable', 'Artisanal Print'],
+    reviews: generateReviews('Vintage Speed Art')
   },
   {
     id: 'hw-3d-3',
-    name: 'Mustang 67 Muscle',
+    name: 'Ice Charger Fast and Furious',
     segment: '3d-hotwheels',
-    price: 1399,
-    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80&w=800',
-    description: 'Vintage Mustang 1967 displayed against a retro garage backdrop.',
-    specifications: ['High Contrast', 'Gift Ready', 'Premium Print'],
-    reviews: generateReviews('Mustang 67 Muscle')
+    price: 1429,
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(2).jpeg`,
+    description: 'The legendary Ice Charger from the Fast & Furious franchise, framed in high detail.',
+    specifications: ['Movie Edition', 'Premium Texture', 'High Contrast Background', 'Secure Hold'],
+    reviews: generateReviews('Ice Charger Fast and Furious')
   },
   {
     id: 'hw-3d-4',
-    name: 'Supra MK4 Legend',
+    name: '67 Camaro Legacy',
     segment: '3d-hotwheels',
-    price: 1699,
-    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80&w=800',
-    description: 'The holy grail of JDM, showcased in a modern floating frame.',
-    specifications: ['Carbon Background', 'Secure Hold', 'Modern Art'],
-    reviews: generateReviews('Supra MK4 Legend')
+    price: 1399,
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(3).jpeg`,
+    description: 'A tribute to American muscle racing history with the iconic 1967 Camaro.',
+    specifications: ['Muscle Series', 'Premium Wood Frame', 'Carbon Fiber Texture', 'Authentic Die-Cast'],
+    reviews: generateReviews('67 Camaro Legacy')
   },
   {
     id: 'hw-3d-5',
-    name: 'Countach Retro Wave',
+    name: 'Subaru Impreza',
     segment: '3d-hotwheels',
-    price: 1799,
-    image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?auto=format&fit=crop&q=80&w=800',
-    description: 'Lamborghini Countach with an 80s synthwave inspired backdrop.',
-    specifications: ['Vibrant Colors', 'Exclusive Design', 'High Gloss'],
-    reviews: generateReviews('Countach Retro Wave')
+    price: 1349,
+    image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.22%20PM.jpeg`,
+    description: 'Rally legend Subaru Impreza showcased in a modern floating frame.',
+    specifications: ['Rally Heritage', 'Modern Minimalist', 'High Gloss Finish', 'Limited Edition'],
+    reviews: generateReviews('Subaru Impreza')
   },
 
   // Segment: 3D Metal Car
   {
     id: 'mc-3d-1',
-    name: 'Aventador SVJ Steel',
+    name: 'Ferrari SF90',
     segment: '3d-car',
-    price: 2999,
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800',
-    description: 'Solid metal 3D sculpture of the Aventador SVJ in a luxury frame.',
-    specifications: ['Solid Metal', 'Hand Painted', '3D Pop-out'],
-    reviews: generateReviews('Aventador SVJ Steel')
+    price: 1799,
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM.jpeg`,
+    description: 'A stunning 3D metal representation of the Ferrari SF90 Stradale.',
+    specifications: ['Solid Metal', 'Hand Painted', '3D Pop-out Effect'],
+    reviews: generateReviews('Ferrari SF90')
   },
   {
     id: 'mc-3d-2',
-    name: 'Ferrari Purosangue Art',
+    name: 'BMW GT3',
     segment: '3d-car',
-    price: 3299,
-    image: 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&q=80&w=800',
-    description: 'The latest Ferrari masterpiece rendered in high-grade aluminum.',
-    specifications: ['Brushed Metal', 'Museum Quality', 'Deep Shadowbox'],
-    reviews: generateReviews('Ferrari Purosangue Art')
+    price: 1649,
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM%20(1).jpeg`,
+    description: 'High-detail 3D art featuring the aggressive lines of the BMW GT3 racer.',
+    specifications: ['Brushed Metal Finish', 'Premium Deep Frame', 'Limited Batch'],
+    reviews: generateReviews('BMW GT3')
   },
   {
     id: 'mc-3d-3',
-    name: 'McLaren 720S Shadow',
+    name: 'McLaren P1',
     segment: '3d-car',
-    price: 2899,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800',
-    description: 'Stealth black metal finish with orange accents for the 720S.',
-    specifications: ['Matte Black Metal', 'Floating Design', 'Lightweight Alloy'],
-    reviews: generateReviews('McLaren 720S Shadow')
+    price: 1739,
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM%20(2).jpeg`,
+    description: 'The legendary McLaren P1 hypercar showcased in deep 3D metalwork.',
+    specifications: ['Metallic Shadow Design', 'Floating Frame', 'Artisanal Build'],
+    reviews: generateReviews('McLaren P1')
   },
   {
     id: 'mc-3d-4',
-    name: 'Bugatti Chiron Steel',
+    name: 'Porsche',
     segment: '3d-car',
-    price: 3499,
-    image: 'https://images.unsplash.com/photo-1605733513597-a8f8d410fe3c?auto=format&fit=crop&q=80&w=800',
-    description: 'A heavy-duty 3D representation of the speed king.',
-    specifications: ['Laser Cut', 'Stainless Steel', 'Premium Mounting'],
-    reviews: generateReviews('Bugatti Chiron Steel')
+    price: 1599,
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.56%20PM.jpeg`,
+    description: 'Iconic Porsche styling captured in a premium 3D metal frame.',
+    specifications: ['German Engineering Art', 'Sleek Aesthetic', 'Wall Ready'],
+    reviews: generateReviews('Porsche')
   },
   {
     id: 'mc-3d-5',
-    name: 'Pagani Huayra Artisanal',
+    name: 'Supra',
     segment: '3d-car',
-    price: 3999,
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800',
-    description: 'Intricate metalwork showing the beauty of Pagani engineering.',
-    specifications: ['Highly Detailed', 'Velvet Backing', 'Signature Series'],
-    reviews: generateReviews('Pagani Huayra Artisanal')
+    price: 1999,
+    image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.56%20PM%20(1).jpeg`,
+    description: 'The fan-favorite Toyota Supra rendered in high-grade metal for enthusiasts.',
+    specifications: ['JDM Legend Series', 'Highly Detailed', 'Exclusive Item'],
+    reviews: generateReviews('Supra')
   },
 
-  // Segment: 3D Car (Premium)
+  // Segment: 3D Car (Premium) - Updated Names and Prices
   {
     id: 'pr-3d-1',
-    name: 'Luminous Aventador',
+    name: 'Shelby GT500',
     segment: '3d-car-premium',
-    price: 5999,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800',
-    description: '3D Metal car with app-controlled RGB LED backlighting.',
-    specifications: ['Smart LEDs', 'Real Carbon Fiber', 'Bluetooth Control'],
-    reviews: generateReviews('Luminous Aventador')
+    price: 1599,
+    image: `${PREMIUM_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.15.31%20PM.jpeg`,
+    description: '100% Handcrafted Shelby GT500 metal frame with integrated LED effects and premium materials.',
+    specifications: ['Hand Crafted', 'LED Glow System', 'Imported Durable Items', 'Elite Finish'],
+    reviews: generateReviews('Shelby GT500')
   },
   {
     id: 'pr-3d-2',
-    name: 'Chrome G-Wagon Elite',
+    name: 'Thar',
     segment: '3d-car-premium',
-    price: 6499,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800',
-    description: 'Fully chrome-plated 3D G-Wagon with halo lighting effects.',
-    specifications: ['Mirror Finish', 'Wall Glow', 'Remote Operated'],
-    reviews: generateReviews('Chrome G-Wagon Elite')
-  },
-  {
-    id: 'pr-3d-3',
-    name: 'Royal Gold Phantom',
-    segment: '3d-car-premium',
-    price: 8999,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800',
-    description: '24K Gold plated 3D details on a luxury black velvet canvas.',
-    specifications: ['Gold Plated', 'Spirit of Ecstasy 3D', 'Authentic Velvet'],
-    reviews: generateReviews('Royal Gold Phantom')
-  },
-  {
-    id: 'pr-3d-4',
-    name: 'GT3 RS Night Edition',
-    segment: '3d-car-premium',
-    price: 6999,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&get=80&w=800',
-    description: 'Glow-in-the-dark accents combined with dynamic ambient LEDs.',
-    specifications: ['Dusk Sensor', 'Motion Lighting', 'Alcantara Frame'],
-    reviews: generateReviews('GT3 RS Night Edition')
-  },
-  {
-    id: 'pr-3d-5',
-    name: 'Platinum Chiron Ultra',
-    segment: '3d-car-premium',
-    price: 9999,
-    image: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=800',
-    description: 'The pinnacle of framing: Brushed platinum metal with crystal accents.',
-    specifications: ['Platinum Finish', 'Crystal Headlights', 'Numbered 1/10'],
-    reviews: generateReviews('Platinum Chiron Ultra')
+    price: 1699,
+    image: `${PREMIUM_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.15.31%20PM%20(1).jpeg`,
+    description: 'The iconic Thar captured in a handcrafted 3D masterpiece with custom LED backlighting.',
+    specifications: ['Bespoke Build', 'Dynamic LEDs', 'High-Grade Materials', 'Lifetime Frame'],
+    reviews: generateReviews('Thar')
   },
 
   // Segment: Special
@@ -279,7 +250,7 @@ export const PRODUCTS: Product[] = [
     name: 'Virat Kohli Iconic 82*',
     segment: 'special',
     price: 2499,
-    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&get=80&w=800',
     description: '3D frame celebrating the legendary MCG knock with authentic ground texture.',
     specifications: ['Handcrafted', 'Commemorative', 'Gold Embossed'],
     reviews: generateReviews('Virat Kohli Iconic 82*')
@@ -334,7 +305,10 @@ export const STATES = [
   'Uttarakhand', 'West Bengal'
 ];
 
-export const CONTACT_WHATSAPP = "917977687041";
+/** Contact for order receiving and live support: +91 91754 88551 */
+export const CONTACT_WHATSAPP = "919175488551";
+
+/** Contact for payment and QR remains as prior: +91 7977687041 */
 export const UPI_ID = "7977687041@fam";
 
 export const UPI_QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=upi://pay?pa=${UPI_ID}%26pn=DYmartins%26cu=INR`;

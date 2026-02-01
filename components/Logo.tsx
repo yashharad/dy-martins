@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface LogoProps {
@@ -11,7 +10,6 @@ export const Logo: React.FC<LogoProps> = ({ className = "h-10 sm:h-12", showText
   if (vertical) {
     return (
       <div className={`flex flex-col items-center text-center ${className}`}>
-        {/* Icon Graphic - Larger for Vertical Layout */}
         <svg viewBox="0 0 200 140" className="h-48 w-auto mb-10 transform hover:scale-105 transition-transform duration-700" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="goldGradientMain" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -24,42 +22,20 @@ export const Logo: React.FC<LogoProps> = ({ className = "h-10 sm:h-12", showText
               <stop offset="50%" stopColor="#FFFFFF" />
               <stop offset="100%" stopColor="#808080" />
             </linearGradient>
-            <filter id="goldGlowMain" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="4" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
-          
-          {/* Back Frame (Gold) */}
-          <rect x="40" y="10" width="70" height="85" stroke="url(#goldGradientMain)" strokeWidth="8" rx="4" filter="url(#goldGlowMain)" />
-          <rect x="44" y="14" width="62" height="77" stroke="url(#goldGradientMain)" strokeWidth="1" opacity="0.4" />
-          
-          {/* Front Frame (Silver) */}
+          <rect x="40" y="10" width="70" height="85" stroke="url(#goldGradientMain)" strokeWidth="8" rx="4" />
           <rect x="80" y="35" width="85" height="80" stroke="url(#silverGradientMain)" strokeWidth="8" rx="4" />
-          <rect x="84" y="39" width="77" height="72" stroke="url(#silverGradientMain)" strokeWidth="1" opacity="0.4" />
         </svg>
-
         {showText && (
           <div className="flex flex-col items-center">
-            <span className="font-logo text-6xl sm:text-8xl tracking-tighter leading-none text-white mb-6 italic">
-              DYmartins
-            </span>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-amber-600" />
-              <span className="font-sans text-xs sm:text-sm font-black tracking-[0.8em] uppercase text-amber-600">
-                PRIVATE SELECTION
-              </span>
-              <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-amber-600" />
-            </div>
+            <span className="font-logo text-6xl sm:text-8xl tracking-tighter leading-none text-white mb-6 italic">DYmartins</span>
           </div>
         )}
       </div>
     );
   }
-
   return (
     <div className={`flex items-center gap-6 ${className}`}>
-      {/* Icon Graphic */}
       <svg viewBox="35 5 135 115" className="h-full w-auto flex-shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="navGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -73,23 +49,13 @@ export const Logo: React.FC<LogoProps> = ({ className = "h-10 sm:h-12", showText
             <stop offset="100%" stopColor="#808080" />
           </linearGradient>
         </defs>
-        
-        {/* Back Frame (Gold) */}
         <rect x="40" y="10" width="70" height="85" stroke="url(#navGold)" strokeWidth="8" rx="4" />
-        
-        {/* Front Frame (Silver) */}
         <rect x="80" y="35" width="85" height="80" stroke="url(#navSilver)" strokeWidth="8" rx="4" />
       </svg>
-
-      {/* Text Branding */}
       {showText && (
         <div className="flex flex-col justify-center border-l-2 border-amber-600/30 pl-6 h-[70%]">
-          <span className="font-logo text-2xl sm:text-3xl tracking-tighter leading-none text-gray-900 dark:text-white italic">
-            DYmartins
-          </span>
-          <span className="font-sans text-[8px] sm:text-[9px] font-black tracking-[0.4em] uppercase opacity-50 text-gray-500 dark:text-gray-400 mt-1.5">
-            CUSTOM FRAMING
-          </span>
+          <span className="font-logo text-2xl sm:text-3xl tracking-tighter leading-none text-gray-900 dark:text-white italic">DYmartins</span>
+          <span className="font-sans text-[8px] sm:text-[9px] font-black tracking-[0.4em] uppercase opacity-50 text-gray-500 dark:text-gray-400 mt-1.5">CUSTOM FRAMING</span>
         </div>
       )}
     </div>

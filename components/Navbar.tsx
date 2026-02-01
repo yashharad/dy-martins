@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ChevronLeft, Sun, Moon, LogIn, LogOut, LayoutDashboard, User as UserIcon } from 'lucide-react';
+import { ChevronLeft, Sun, Moon, LogOut, LayoutDashboard, User as UserIcon } from 'lucide-react';
 import { User } from '../types';
 import { Logo } from './Logo';
 

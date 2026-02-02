@@ -1,29 +1,24 @@
 # Netlify Deployment Guide (Resolving Build Failures)
 
-If your Netlify deployment is failing at the "Starting to install dependencies" stage, follow these steps:
+### 1. Fix: Dependency Not Found (@google/genai)
+If you saw an error like `No matching version found for @google/genai@^0.22.0`, we have fixed this by setting the version to a known stable release (`0.21.0`) in `package.json`. This ensures that Netlify's build servers can find and install the package correctly.
 
-### 1. Fix: Node.js Version
-We have added a `.node-version` file set to `20`. Vite 6 requires Node 18 or higher. Netlify's default environment can sometimes be older, causing the dependency installation to crash.
+### 2. Fix: Node.js Version
+We have a `.node-version` file set to `20`. This is required for Vite 6. If Netlify still fails, go to **Site Settings > Build & Deploy > Environment** and add a variable:
+- **Key:** `NODE_VERSION`
+- **Value:** `20`
 
-### 2. Fix: Import Map Conflict
-The redundant `importmap` block has been removed from `index.html`. This block was causing conflicts with Vite's module resolution during the build process.
+### 3. Fix: Import Map Conflict
+The `importmap` in `index.html` has been removed. It was intended for "no-build" environments, but since Netlify uses a build step (Vite), keeping it causes conflicts.
 
-### 3. Deployment via GitHub (Highly Recommended)
-Deploying via GitHub is the most stable method because Netlify manages the build environment directly:
-1. Create a new GitHub repository.
-2. Upload all project files to it.
+### 4. Deployment via GitHub (Highly Recommended)
+1. Create a GitHub repository.
+2. Upload all project files.
 3. In Netlify, choose **"Import from Git"**.
 4. **Build Settings:**
    - **Build Command:** `npm run build`
    - **Publish Directory:** `dist`
-5. Netlify will handle the `npm install` and `npm run build` automatically.
+5. Netlify will now automatically install dependencies and build the site.
 
-### 4. Deploying via Manual Upload (Mobile ZIP)
-If you are uploading a ZIP directly to Netlify:
-- **Netlify "Drag & Drop" only accepts pre-built files.**
-- You cannot upload the *source code* (the files you downloaded) to the Drag & Drop area.
-- You must either:
-  1. Use the **GitHub Integration** (see Step 3).
-  2. Build the project locally on a computer first, then upload the contents of the `dist` folder.
-
-**Summary:** For the best experience on mobile, always use the **GitHub Integration** method. It bypasses the limitations of manual ZIP uploads and correctly triggers the build process.
+### 5. Summary for Mobile Users
+On mobile, the easiest way is to use the **GitHub Integration**. Manual ZIP uploads of source code directly to the Netlify "Drag & Drop" box will NOT work because that area expects a pre-built `dist` folder, not raw code. Use GitHub to let Netlify handle the build for you.

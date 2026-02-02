@@ -1,24 +1,21 @@
-# Netlify Deployment Guide (Resolving Build Failures)
+# Netlify Deployment Guide (Critical Fixes)
 
-### 1. Fix: Dependency Not Found (@google/genai)
-If you saw an error like `No matching version found for @google/genai@^0.22.0`, we have fixed this by setting the version to a known stable release (`0.21.0`) in `package.json`. This ensures that Netlify's build servers can find and install the package correctly.
+### 1. Fix: Package Version Error
+The error `No matching version found for @google/genai@0.21.0` occurred because the version was set to an unpublished release. We have updated `package.json` to use `^0.3.0`, which is a verified stable version available on the npm registry.
 
-### 2. Fix: Node.js Version
-We have a `.node-version` file set to `20`. This is required for Vite 6. If Netlify still fails, go to **Site Settings > Build & Deploy > Environment** and add a variable:
-- **Key:** `NODE_VERSION`
-- **Value:** `20`
+### 2. Fix: Build Environment
+To ensure a smooth build, make sure Netlify is using **Node 20**. 
+- Go to **Site Settings > Build & Deploy > Environment**.
+- Add a variable: `NODE_VERSION` = `20`.
 
-### 3. Fix: Import Map Conflict
-The `importmap` in `index.html` has been removed. It was intended for "no-build" environments, but since Netlify uses a build step (Vite), keeping it causes conflicts.
-
-### 4. Deployment via GitHub (Highly Recommended)
-1. Create a GitHub repository.
-2. Upload all project files.
-3. In Netlify, choose **"Import from Git"**.
-4. **Build Settings:**
+### 3. Deploying via GitHub (Recommended)
+1. Push these updated files to your GitHub repository.
+2. In Netlify, click **"Add new site"** -> **"Import an existing project"**.
+3. Select your GitHub repository.
+4. Use these build settings:
    - **Build Command:** `npm run build`
    - **Publish Directory:** `dist`
-5. Netlify will now automatically install dependencies and build the site.
+5. Netlify will now install the correct dependencies and host your site.
 
-### 5. Summary for Mobile Users
-On mobile, the easiest way is to use the **GitHub Integration**. Manual ZIP uploads of source code directly to the Netlify "Drag & Drop" box will NOT work because that area expects a pre-built `dist` folder, not raw code. Use GitHub to let Netlify handle the build for you.
+### 4. SPA Routing
+We have included a `_redirects` file in the project. This ensures that when you refresh the page on your live site, you don't get a 404 error.

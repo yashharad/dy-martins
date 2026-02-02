@@ -1,20 +1,24 @@
-# Netlify Deployment Guide (Final Fixes)
+# Netlify Mobile Deployment Guide
 
-If your previous deploy failed or showed a blank page, please ensure you use the latest files provided.
+If you are seeing a **404 Page Not Found** after deploying from mobile, follow these exact steps to fix it.
 
-### Mandatory Netlify Settings:
-- **Build Command:** `npm run build`
-- **Publish Directory:** `dist`
-- **Node Version:** 18+ (Netlify defaults to a recent version, which is fine)
+### 1. The Correct Way to ZIP (Mobile)
+Mobile file managers often create a ZIP that contains a single folder, which then contains your code. **Netlify cannot read this.**
+- **WRONG:** Select the folder -> Compress.
+- **RIGHT:** Open the folder -> Select ALL files (`index.html`, `package.json`, etc.) -> Compress these files directly.
+- **The Check:** When you open the ZIP, the `index.html` file should be visible immediately, NOT inside another folder.
 
-### Troubleshooting "Blank Page":
-The blank page was caused by the `importmap` block in `index.html`. We have removed it. Vite manages your imports during the build process, so an import map is not needed and actually breaks the app in production.
+### 2. The Best Way: GitHub Sync
+To avoid manual ZIP issues on mobile:
+1. Upload your code to a **GitHub** repository.
+2. Log into Netlify and click **"Add new site"** -> **"Import an existing project"**.
+3. Select your GitHub repo.
+4. Set **Build command** to `npm run build` and **Publish directory** to `dist`.
+5. This is the most professional way and guarantees your site will work.
 
-### Troubleshooting "ETARGET" Error:
-The version of `@google/genai` in `package.json` was set to an invalid number. It has been updated to `^0.22.0`.
+### 3. If you see a Blank Screen
+- Make sure you are using **Vite** as the build tool (this is already configured in the provided files).
+- Ensure your `index.html` does NOT have an `importmap` (I have removed it for you).
 
-### Local Development:
-1. Extract the downloaded ZIP.
-2. Run `npm install` in the folder.
-3. Run `npm run dev` to start the local server.
-4. Run `npm run build` to test the production build locally (output will be in the `dist` folder).
+### 4. SPA Routing
+We have added a `_redirects` file and a `netlify.toml` to ensure that refreshing the page doesn't cause a 404.

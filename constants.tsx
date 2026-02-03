@@ -40,6 +40,12 @@ export const SEGMENTS_INFO: { id: ProductSegment; title: string; subtitle: strin
     image: `${BASE_IMG_URL}classic%20350.jpg` 
   },
   { 
+    id: 'car-2d', 
+    title: 'Car Frame (2D)', 
+    subtitle: 'Classic Silhouettes & Specs', 
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
     id: '3d-hotwheels', 
     title: '3D Hotwheels Frame', 
     subtitle: 'Iconic Die-Cast Display', 
@@ -116,6 +122,38 @@ export const PRODUCTS: Product[] = [
     description: 'High performance art. The BMW S1000RR 2009 edition frame with full power stats.',
     specifications: ['Sporty Background', 'Blue & White Theme', 'Detailed Performance Info', 'Strong Build'],
     reviews: generateReviews('BMW S100RR')
+  },
+
+  // Segment: Car Frame (2D)
+  {
+    id: 'cr-2d-1',
+    name: 'Porsche 911 GT3 RS',
+    segment: 'car-2d',
+    price: 649,
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800',
+    description: 'The ultimate 2D frame for the ultimate driving machine. High-detail silhouette with performance specifications.',
+    specifications: ['Matte Finish', 'A4 Size', 'German Engineering Details', 'Perfect for Garage Walls'],
+    reviews: generateReviews('Porsche 911 GT3 RS')
+  },
+  {
+    id: 'cr-2d-2',
+    name: 'Nissan Skyline GTR R34',
+    segment: 'car-2d',
+    price: 649,
+    image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800',
+    description: 'JDM Legend. This frame captures the spirit of Godzilla with high-quality printing and sleek design.',
+    specifications: ['Deep Blue Theme', 'Iconic Silhouette', 'RB26 Details Included', 'Premium Framing'],
+    reviews: generateReviews('Nissan Skyline GTR R34')
+  },
+  {
+    id: 'cr-2d-3',
+    name: 'Mustang Shelby GT500',
+    segment: 'car-2d',
+    price: 649,
+    image: 'https://images.unsplash.com/photo-1584345604482-81c66755186a?auto=format&fit=crop&q=80&w=800',
+    description: 'American Muscle in a minimalist 2D frame. Bold lines and powerful presence for your interior.',
+    specifications: ['High Gloss Accents', 'Classic Stripe Design', 'Horsepower Stats Displayed', 'Durable Wood Frame'],
+    reviews: generateReviews('Mustang Shelby GT500')
   },
 
   // Segment: 3D Hotwheels Frame
@@ -220,6 +258,16 @@ export const PRODUCTS: Product[] = [
     description: 'The fan-favorite Toyota Supra rendered in high-grade metal for enthusiasts.',
     specifications: ['JDM Legend Series', 'Highly Detailed', 'Exclusive Item'],
     reviews: generateReviews('Supra')
+  },
+  {
+    id: 'mc-3d-6',
+    name: 'BMW M Comp',
+    segment: '3d-car',
+    price: 1679,
+    image: `https://raw.githubusercontent.com/yashharad/3d-car/main/Screenshot_20260203_104138_InstaPro2%20%20.jpg`,
+    description: 'High-performance BMW M Competition series showcased in a deep-relief 3D metal frame.',
+    specifications: ['Precision Metal Etching', '3D Pop-out Design', 'Competition Series Branding', 'Premium Wall Mount'],
+    reviews: generateReviews('BMW M Comp')
   },
 
   // Segment: 3D Car (Premium) - Updated Names and Prices

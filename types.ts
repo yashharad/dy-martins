@@ -1,30 +1,12 @@
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  photoUrl?: string;
-  role: 'admin' | 'user';
-  identifier?: string;
-}
-
-export interface RegisteredUser {
-  identifier: string;
-  name: string;
-  password?: string;
-  role: 'admin' | 'user';
-  createdAt: number;
-}
+export type ProductSegment = 'bike-2d' | 'car-2d' | '3d-hotwheels' | '3d-car' | '3d-car-premium' | 'special';
 
 export interface Review {
   id: string;
   userName: string;
-  rating: number;
   comment: string;
+  rating: number;
   date: string;
 }
-
-export type ProductSegment = 'bike-2d' | '3d-hotwheels' | '3d-car' | '3d-car-premium' | 'special';
 
 export interface Product {
   id: string;
@@ -53,19 +35,34 @@ export interface Order {
   productName: string;
   price: number;
   customerDetails: CustomerDetails;
-  transactionId?: string;
+  transactionId: string;
   screenshot?: string;
-  status: 'pending' | 'paid' | 'confirmed';
+  status: 'paid' | 'pending';
   timestamp: number;
-  isCloudOrder?: boolean;
-  locationNode?: string; 
+  isCloudOrder: boolean;
+  locationNode?: string;
+}
+
+export interface User {
+  id: string;
+  identifier: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+}
+
+export interface RegisteredUser {
+  identifier: string;
+  name: string;
+  password?: string;
+  role: 'admin' | 'user';
+  createdAt: number;
 }
 
 export enum CheckoutStep {
-  CATALOG = 'CATALOG',
-  PRODUCT_PAGE = 'PRODUCT_PAGE',
-  DETAILS = 'DETAILS',
-  PAYMENT = 'PAYMENT',
-  CONFIRMATION = 'CONFIRMATION',
-  SUCCESS = 'SUCCESS'
+  CATALOG,
+  PRODUCT_PAGE,
+  DETAILS,
+  PAYMENT,
+  SUCCESS
 }

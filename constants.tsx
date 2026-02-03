@@ -31,6 +31,7 @@ const BASE_IMG_URL = "https://raw.githubusercontent.com/yashharad/images/main/";
 const HW_BASE_URL = "https://raw.githubusercontent.com/yashharad/hot-wheels/main/";
 const METAL_CAR_BASE_URL = "https://raw.githubusercontent.com/yashharad/super-car-3d/main/";
 const PREMIUM_CAR_BASE_URL = "https://raw.githubusercontent.com/yashharad/3d-premium/main/";
+const CAR_2D_BASE_URL = "https://raw.githubusercontent.com/yashharad/2d-cars/main/";
 
 export const SEGMENTS_INFO: { id: ProductSegment; title: string; subtitle: string; image: string }[] = [
   { 
@@ -43,7 +44,7 @@ export const SEGMENTS_INFO: { id: ProductSegment; title: string; subtitle: strin
     id: 'car-2d', 
     title: 'Car Frame (2D)', 
     subtitle: 'Classic Silhouettes & Specs', 
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800' 
+    image: `${CAR_2D_BASE_URL}IMG-20260203-WA0003.jpg` 
   },
   { 
     id: '3d-hotwheels', 
@@ -124,36 +125,26 @@ export const PRODUCTS: Product[] = [
     reviews: generateReviews('BMW S100RR')
   },
 
-  // Segment: Car Frame (2D)
+  // Segment: Car Frame (2D) - Exactly 2 Products
   {
-    id: 'cr-2d-1',
-    name: 'Porsche 911 GT3 RS',
+    id: 'cr-2d-exclusive-1',
+    name: 'BMW M4 Competition',
     segment: 'car-2d',
     price: 649,
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800',
-    description: 'The ultimate 2D frame for the ultimate driving machine. High-detail silhouette with performance specifications.',
-    specifications: ['Matte Finish', 'A4 Size', 'German Engineering Details', 'Perfect for Garage Walls'],
-    reviews: generateReviews('Porsche 911 GT3 RS')
+    image: `${CAR_2D_BASE_URL}IMG-20260203-WA0003.jpg`,
+    description: 'Premium 2D automotive silhouette frame of the aggressive BMW M4 Competition. Features a sleek, minimalist profile.',
+    specifications: ['Matte Black Frame', 'High-Gsm Paper', 'Precision Silhouette', 'Sleek Aesthetic'],
+    reviews: generateReviews('BMW M4 Competition')
   },
   {
-    id: 'cr-2d-2',
-    name: 'Nissan Skyline GTR R34',
+    id: 'cr-2d-exclusive-2',
+    name: 'Performance Silhouette 02',
     segment: 'car-2d',
     price: 649,
-    image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=800',
-    description: 'JDM Legend. This frame captures the spirit of Godzilla with high-quality printing and sleek design.',
-    specifications: ['Deep Blue Theme', 'Iconic Silhouette', 'RB26 Details Included', 'Premium Framing'],
-    reviews: generateReviews('Nissan Skyline GTR R34')
-  },
-  {
-    id: 'cr-2d-3',
-    name: 'Mustang Shelby GT500',
-    segment: 'car-2d',
-    price: 649,
-    image: 'https://images.unsplash.com/photo-1584345604482-81c66755186a?auto=format&fit=crop&q=80&w=800',
-    description: 'American Muscle in a minimalist 2D frame. Bold lines and powerful presence for your interior.',
-    specifications: ['High Gloss Accents', 'Classic Stripe Design', 'Horsepower Stats Displayed', 'Durable Wood Frame'],
-    reviews: generateReviews('Mustang Shelby GT500')
+    image: `${CAR_2D_BASE_URL}IMG-20260203-WA0004.jpg`,
+    description: 'Complementary 2D performance frame. A perfect match for any enthusiast gallery or garage workspace.',
+    specifications: ['Glass Front', 'Minimalist Design', 'Durable Backing', 'Wall Mount Ready'],
+    reviews: generateReviews('Performance Silhouette 02')
   },
 
   // Segment: 3D Hotwheels Frame

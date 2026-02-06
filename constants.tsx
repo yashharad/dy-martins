@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
     reviews: generateReviews('BMW S100RR')
   },
 
-  // Segment: Car Frame (2D) - Exactly 2 Products
+  // Segment: Car Frame (2D)
   {
     id: 'cr-2d-exclusive-1',
     name: 'BMW M4 Competition',
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
     id: 'hw-3d-1',
     name: 'Exotic Drift Edition',
     segment: '3d-hotwheels',
-    price: 1299,
+    price: 999,
     image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(1).jpeg`,
     description: 'Premium frame featuring an iconic high-performance drift machine.',
     specifications: ['Collector Case', 'Deep Frame', 'Acrylic Front', 'Vibrant Backing'],
@@ -162,7 +162,7 @@ export const PRODUCTS: Product[] = [
     id: 'hw-3d-2',
     name: 'Vintage Speed Art',
     segment: '3d-hotwheels',
-    price: 1199,
+    price: 999,
     image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM.jpeg`,
     description: 'Classic automotive speed captured in a detailed 3D die-cast display.',
     specifications: ['Retro Aesthetic', 'Dustproof Acrylic', 'Wall Mountable', 'Artisanal Print'],
@@ -172,7 +172,7 @@ export const PRODUCTS: Product[] = [
     id: 'hw-3d-3',
     name: 'Ice Charger Fast and Furious',
     segment: '3d-hotwheels',
-    price: 1429,
+    price: 999,
     image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(2).jpeg`,
     description: 'The legendary Ice Charger from the Fast & Furious franchise, framed in high detail.',
     specifications: ['Movie Edition', 'Premium Texture', 'High Contrast Background', 'Secure Hold'],
@@ -182,7 +182,7 @@ export const PRODUCTS: Product[] = [
     id: 'hw-3d-4',
     name: '67 Camaro Legacy',
     segment: '3d-hotwheels',
-    price: 1399,
+    price: 999,
     image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.21%20PM%20(3).jpeg`,
     description: 'A tribute to American muscle racing history with the iconic 1967 Camaro.',
     specifications: ['Muscle Series', 'Premium Wood Frame', 'Carbon Fiber Texture', 'Authentic Die-Cast'],
@@ -192,7 +192,7 @@ export const PRODUCTS: Product[] = [
     id: 'hw-3d-5',
     name: 'Subaru Impreza',
     segment: '3d-hotwheels',
-    price: 1349,
+    price: 999,
     image: `${HW_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.22%20PM.jpeg`,
     description: 'Rally legend Subaru Impreza showcased in a modern floating frame.',
     specifications: ['Rally Heritage', 'Modern Minimalist', 'High Gloss Finish', 'Limited Edition'],
@@ -250,18 +250,8 @@ export const PRODUCTS: Product[] = [
     specifications: ['JDM Legend Series', 'Highly Detailed', 'Exclusive Item'],
     reviews: generateReviews('Supra')
   },
-  {
-    id: 'mc-3d-6',
-    name: 'BMW M Comp',
-    segment: '3d-car',
-    price: 1679,
-    image: `https://raw.githubusercontent.com/yashharad/3d-car/main/Screenshot_20260203_104138_InstaPro2%20%20.jpg`,
-    description: 'High-performance BMW M Competition series showcased in a deep-relief 3D metal frame.',
-    specifications: ['Precision Metal Etching', '3D Pop-out Design', 'Competition Series Branding', 'Premium Wall Mount'],
-    reviews: generateReviews('BMW M Comp')
-  },
 
-  // Segment: 3D Car (Premium) - Updated Names and Prices
+  // Segment: 3D Car (Premium)
   {
     id: 'pr-3d-1',
     name: 'Shelby GT500',
@@ -289,7 +279,7 @@ export const PRODUCTS: Product[] = [
     name: 'Virat Kohli Iconic 82*',
     segment: 'special',
     price: 2499,
-    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&get=80&w=800',
+    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800',
     description: '3D frame celebrating the legendary MCG knock with authentic ground texture.',
     specifications: ['Handcrafted', 'Commemorative', 'Gold Embossed'],
     reviews: generateReviews('Virat Kohli Iconic 82*')
@@ -303,36 +293,6 @@ export const PRODUCTS: Product[] = [
     description: '3D silhouette of the helicopter shot with the 2011 WC theme.',
     specifications: ['Laser Etched', 'Exclusive Art', 'Victory Series'],
     reviews: generateReviews('MS Dhoni Finisher')
-  },
-  {
-    id: 'sp-3',
-    name: 'Lionel Messi G.O.A.T',
-    segment: 'special',
-    price: 2999,
-    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800',
-    description: 'World Cup winning moment in a deep gold-leafed floating frame.',
-    specifications: ['Canvas Print', '3D Medal Replica', 'Signature Style'],
-    reviews: generateReviews('Lionel Messi G.O.A.T')
-  },
-  {
-    id: 'sp-4',
-    name: 'Cristiano Ronaldo CR7',
-    segment: 'special',
-    price: 2999,
-    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800',
-    description: 'High-gloss 3D frame featuring the iconic "Siu" silhouette.',
-    specifications: ['Sports Minimalist', 'Modern Acrylic', 'Champion Edition'],
-    reviews: generateReviews('Cristiano Ronaldo CR7')
-  },
-  {
-    id: 'sp-5',
-    name: 'Sachin Master Blaster',
-    segment: 'special',
-    price: 2799,
-    image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=800',
-    description: 'A tribute to the God of Cricket featuring his career stats 3D etched.',
-    specifications: ['Stat-Etched Glass', 'Veneer Wood', 'Timeless Design'],
-    reviews: generateReviews('Sachin Master Blaster')
   },
 ];
 

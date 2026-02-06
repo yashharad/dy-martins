@@ -19,11 +19,11 @@ import { ImagePreviewModal } from './components/ImagePreviewModal';
 import { SpecialEditionComingSoon } from './components/SpecialEditionComingSoon';
 import { PremiumSectionPopup } from './components/PremiumSectionPopup';
 import { FilterSidebar } from './components/FilterSidebar';
-import { BottomNav } from './components/BottomNav';
 import { OrdersModal } from './components/OrdersModal';
+import { Logo } from './components/Logo';
 import { PRODUCTS, SEGMENTS_INFO, CONTACT_WHATSAPP, UPI_QR_URL } from './constants';
 import { Product, CustomerDetails, CheckoutStep, Order, User, RegisteredUser, ProductSegment } from './types';
-import { ChevronLeft, RefreshCw, RefreshCcw, Filter, X } from 'lucide-react';
+import { ChevronLeft, RefreshCw, RefreshCcw, Filter } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -263,39 +263,48 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <Navbar 
-        showBack={isAdminView || currentStep !== CheckoutStep.CATALOG || !!activeSegment} 
-        onBack={() => window.history.back()}
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        user={user}
-        onLogin={() => setIsLoginModalOpen(true)}
-        onLogout={() => { setUser(null); setIsAdminView(false); localStorage.removeItem('fm_user'); setCurrentStep(CheckoutStep.CATALOG); }}
-        isAdminView={isAdminView}
-        onToggleAdminView={() => {
-          if (!isAdminView) window.history.pushState(null, '');
-          setIsAdminView(!isAdminView);
-        }}
-      />
+      {/* Primary Top Navbar */}
+      {!isInitializing && (
+        <Navbar 
+          showBack={isAdminView || currentStep !== CheckoutStep.CATALOG || !!activeSegment} 
+          onBack={handleStepBack}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          user={user}
+          onLogin={() => setIsLoginModalOpen(true)}
+          onLogout={() => { setUser(null); setIsAdminView(false); localStorage.removeItem('fm_user'); setCurrentStep(CheckoutStep.CATALOG); }}
+          onShowOrders={() => user ? setIsOrdersModalOpen(true) : setIsLoginModalOpen(true)}
+          isAdminView={isAdminView}
+          onToggleAdminView={() => {
+            if (!isAdminView) window.history.pushState(null, '');
+            setIsAdminView(!isAdminView);
+          }}
+        />
+      )}
       
-      <main className={`flex-1 relative z-10 transition-all duration-700 ${isInitializing ? 'blur-xl opacity-0 scale-95' : 'blur-0 opacity-100 scale-100'} pb-24 md:pb-0`}>
+      <main className={`flex-1 relative z-10 transition-all duration-700 ${isInitializing ? 'blur-xl opacity-0 scale-95' : 'blur-0 opacity-100 scale-100'}`}>
         {isAdminView ? (
-          <AdminDashboard 
-            orders={orders} qrCodeUrl={customQr} onUpdateQr={handleUpdateQr} onSyncGlobal={syncAccountData}
-            onExport={() => {}} onImport={() => {}} onClearAll={() => setOrders([])}
-          />
+          <div className="animate-modal">
+            <AdminDashboard 
+              orders={orders} qrCodeUrl={customQr} onUpdateQr={handleUpdateQr} onSyncGlobal={syncAccountData}
+              onExport={() => {}} onImport={() => {}} onClearAll={() => setOrders([])}
+            />
+          </div>
         ) : (
           <>
             {currentStep === CheckoutStep.CATALOG && (
               <div className="max-w-screen-2xl mx-auto px-4 py-12">
                 {!activeSegment ? (
                   <>
-                    <div className="mb-16 text-center">
-                      <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-6 tracking-tight italic">
+                    <div className="mb-16 text-center animate-modal">
+                      <div className="flex justify-center mb-10">
+                         <Logo className="h-24 sm:h-32" showText={true} vertical={true} />
+                      </div>
+                      <h1 className="text-5xl md:text-8xl font-black text-gray-900 dark:text-white mb-6 tracking-tighter italic leading-none">
                         LUXURY <span className="text-gold">COLLECTIONS</span>
                       </h1>
-                      <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg font-medium">
-                        Select a category to explore our artisanal 3D framing solutions.
+                      <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg md:text-xl font-medium opacity-80">
+                        Select an elite category to explore our artisanal automotive framing solutions.
                       </p>
                     </div>
 
@@ -318,36 +327,35 @@ const App: React.FC = () => {
                 ) : activeSegment === 'special' ? (
                   <SpecialEditionComingSoon onBack={() => window.history.back()} />
                 ) : (
-                  <div className="animate-modal">
+                  <div className="animate-modal pt-10">
                     {/* Header Section */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-                      <div className="flex items-center gap-4">
-                        <button onClick={() => window.history.back()} className="p-3 bg-gray-100 dark:bg-gray-800 rounded-2xl hover:bg-amber-600 hover:text-white transition-all">
-                          <ChevronLeft className="w-6 h-6" />
+                      <div className="flex items-center gap-6">
+                        <button onClick={() => window.history.back()} className="p-4 bg-white dark:bg-[#111114] border border-gray-100 dark:border-white/5 rounded-3xl hover:bg-amber-600 hover:text-white transition-all shadow-lg">
+                          <ChevronLeft className="w-7 h-7" />
                         </button>
                         <div>
-                          <h2 className="text-3xl font-black text-gray-900 dark:text-white leading-none tracking-tighter italic">
+                          <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-none tracking-tighter italic">
                               {SEGMENTS_INFO.find(s => s.id === activeSegment)?.title}
                           </h2>
-                          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2">
-                            {filteredProducts.length} Results Found
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mt-3">
+                            {filteredProducts.length} Artisanal Pieces Found
                           </p>
                         </div>
                       </div>
 
-                      {/* Mobile Filter Toggle */}
+                      {/* Filter Toggle */}
                       <button 
                         onClick={() => setIsMobileFiltersOpen(true)}
-                        className="md:hidden flex items-center justify-center gap-2 bg-white dark:bg-[#111114] border border-gray-100 dark:border-white/5 p-4 rounded-2xl shadow-sm text-xs font-black uppercase tracking-widest text-gray-600 dark:text-gray-400"
+                        className="flex items-center justify-center gap-3 bg-white dark:bg-[#111114] border border-gray-100 dark:border-white/5 px-6 py-4 rounded-[28px] shadow-xl text-[10px] font-black uppercase tracking-widest text-gray-900 dark:text-white hover:border-amber-500 transition-all"
                       >
-                        <Filter className="w-4 h-4" /> Filters
-                        {(priceRange || minRating) && <div className="w-2 h-2 rounded-full bg-amber-500" />}
+                        <Filter className="w-4 h-4" /> Filter Selection
+                        {(priceRange || minRating) && <div className="w-2.5 h-2.5 rounded-full bg-amber-500 ring-4 ring-amber-500/20" />}
                       </button>
                     </div>
 
                     <div className="flex gap-10">
-                      {/* Desktop Sidebar */}
-                      <div className="hidden md:block w-72 flex-shrink-0 sticky top-32 h-[calc(100vh-160px)] rounded-[32px] overflow-hidden border border-gray-100 dark:border-white/5 shadow-2xl">
+                      <div className="hidden lg:block w-72 flex-shrink-0 sticky top-32 h-[calc(100vh-160px)] rounded-[48px] overflow-hidden border border-gray-100 dark:border-white/5 shadow-2xl">
                         <FilterSidebar 
                           activeSegment={activeSegment}
                           onSegmentChange={handleSegmentClick}
@@ -358,22 +366,21 @@ const App: React.FC = () => {
                         />
                       </div>
 
-                      {/* Product Grid */}
                       <div className="flex-1">
                         {filteredProducts.length === 0 ? (
-                          <div className="bg-white dark:bg-[#111114] rounded-[48px] p-20 text-center border border-dashed border-gray-200 dark:border-white/5">
-                            <Filter className="w-16 h-16 text-gray-200 dark:text-gray-800 mx-auto mb-6" />
-                            <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2 italic">No Masterpieces Found</h3>
-                            <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xs mx-auto">Try adjusting your filters to find your perfect automotive frame.</p>
+                          <div className="bg-white dark:bg-[#111114] rounded-[56px] p-24 text-center border border-dashed border-gray-200 dark:border-white/10 shadow-2xl">
+                            <Filter className="w-20 h-20 text-gray-200 dark:text-gray-800 mx-auto mb-8" />
+                            <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-3 italic tracking-tight">Empty Collection</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mb-10 max-w-xs mx-auto text-lg leading-relaxed">Refine your search parameters to locate the perfect masterpiece.</p>
                             <button 
                               onClick={() => { setPriceRange(null); setMinRating(null); }}
-                              className="bg-amber-600 text-white font-black px-10 py-4 rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-amber-900/20"
+                              className="bg-amber-600 text-white font-black px-12 py-5 rounded-[24px] text-[10px] uppercase tracking-[0.2em] shadow-2xl shadow-amber-900/40 active:scale-95 transition-all"
                             >
-                              Reset All Filters
+                              Reset All Protocols
                             </button>
                           </div>
                         ) : (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
                             {filteredProducts.map(p => (
                               <ProductCard 
                                 key={p.id} 
@@ -418,6 +425,11 @@ const App: React.FC = () => {
             {currentStep === CheckoutStep.DETAILS && selectedProduct && (
               <div className="py-12">
                 <OrderSteps currentStep={0} />
+                <div className="max-w-7xl mx-auto px-6 mb-8">
+                   <button onClick={() => window.history.back()} className="text-[10px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                     <ChevronLeft className="w-4 h-4" /> Review Selection
+                   </button>
+                </div>
                 <CheckoutForm product={selectedProduct} onSubmit={(d) => { 
                   window.history.pushState(null, '');
                   setCustomerDetails(d); 
@@ -442,38 +454,6 @@ const App: React.FC = () => {
           </>
         )}
       </main>
-
-      {/* Mobile Nav Bar */}
-      {!isAdminView && (
-        <BottomNav 
-          currentStep={currentStep}
-          activeSegment={activeSegment}
-          isOrdersOpen={isOrdersModalOpen}
-          onHome={() => {
-            setCurrentStep(CheckoutStep.CATALOG);
-            setActiveSegment(null);
-            setIsOrdersModalOpen(false);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onCategories={() => {
-            setCurrentStep(CheckoutStep.CATALOG);
-            setActiveSegment(null);
-            setIsOrdersModalOpen(false);
-            setTimeout(() => {
-              document.getElementById('segment-grid')?.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-          }}
-          onCart={() => setIsOrdersModalOpen(!isOrdersModalOpen)}
-          onAccount={() => {
-            if (user) {
-              // Show account info or just open orders
-              setIsOrdersModalOpen(true);
-            } else {
-              setIsLoginModalOpen(true);
-            }
-          }}
-        />
-      )}
 
       {/* Mobile Filters Modal */}
       {isMobileFiltersOpen && (

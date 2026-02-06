@@ -1,5 +1,13 @@
 import { Product, Review, ProductSegment } from './types';
 
+/** Contact for payment and QR remains as prior: +91 7977687041 */
+export const UPI_ID = "7977687041@fam";
+
+/** Contact for order receiving and live support: +91 91754 88551 */
+export const CONTACT_WHATSAPP = "919175488551";
+
+export const UPI_QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=upi://pay?pa=${UPI_ID}%26pn=DYmartins%26cu=INR`;
+
 const generateReviews = (productName: string): Review[] => {
   const commonReviews = [
     { name: "Rahul Sharma", comment: "Excellent quality, fits perfectly! The build quality is better than expected.", rating: 5 },
@@ -78,7 +86,7 @@ export const PRODUCTS: Product[] = [
     id: 'bk-2d-1',
     name: 'Royal Enfield 350',
     segment: 'bike-2d',
-    price: 999,
+    price: 399,
     image: `${BASE_IMG_URL}classic%20350.jpg`,
     description: 'A beautiful frame for the classic Royal Enfield 350. Perfect for bike lovers and their rooms.',
     specifications: ['High Quality Print', 'Durable Frame', 'Easy to Hang', 'Bike Stats Included'],
@@ -88,7 +96,7 @@ export const PRODUCTS: Product[] = [
     id: 'bk-2d-2',
     name: 'Kawasaki Ninja H2',
     segment: 'bike-2d',
-    price: 999,
+    price: 449,
     image: `${BASE_IMG_URL}kawasaki%20ninja%20h2.jpg`,
     description: 'Get the superfast Kawasaki Ninja H2 on your wall. High quality design with detailed bike info.',
     specifications: ['Sleek Black Border', 'Premium Finish', 'Clear Specs Display', 'A4 Size'],
@@ -98,7 +106,7 @@ export const PRODUCTS: Product[] = [
     id: 'bk-2d-3',
     name: 'Ride Framework',
     segment: 'bike-2d',
-    price: 999,
+    price: 399,
     image: `${BASE_IMG_URL}just%20ride.jpg`,
     description: 'A motivational frame for every rider. "Riding is a simple solution" quote with a great sunset look.',
     specifications: ['Artistic Look', 'Solid Wood Frame', 'Inspirational Text', 'Wall Ready'],
@@ -108,7 +116,7 @@ export const PRODUCTS: Product[] = [
     id: 'bk-2d-4',
     name: 'GT650',
     segment: 'bike-2d',
-    price: 999,
+    price: 449,
     image: `${BASE_IMG_URL}gt650%20(2).jpg`,
     description: 'The elegant Royal Enfield Continental GT 650 frame. A must-have for Cafe Racer fans.',
     specifications: ['Glossy Print', 'Clean Design', 'Twin Engine Details', 'Premium Frame Material'],
@@ -118,7 +126,7 @@ export const PRODUCTS: Product[] = [
     id: 'bk-2d-5',
     name: 'BMW S100RR',
     segment: 'bike-2d',
-    price: 999,
+    price: 459,
     image: `${BASE_IMG_URL}s100rr.jpg`,
     description: 'High performance art. The BMW S1000RR 2009 edition frame with full power stats.',
     specifications: ['Sporty Background', 'Blue & White Theme', 'Detailed Performance Info', 'Strong Build'],
@@ -130,7 +138,7 @@ export const PRODUCTS: Product[] = [
     id: 'cr-2d-exclusive-1',
     name: 'BMW M4 Competition',
     segment: 'car-2d',
-    price: 999,
+    price: 459,
     image: `${CAR_2D_BASE_URL}IMG-20260203-WA0003.jpg`,
     description: 'Premium 2D automotive silhouette frame of the aggressive BMW M4 Competition. Features a sleek, minimalist profile.',
     specifications: ['Matte Black Frame', 'High-Gsm Paper', 'Precision Silhouette', 'Sleek Aesthetic'],
@@ -140,7 +148,7 @@ export const PRODUCTS: Product[] = [
     id: 'cr-2d-exclusive-2',
     name: 'Performance Silhouette 02',
     segment: 'car-2d',
-    price: 999,
+    price: 399,
     image: `${CAR_2D_BASE_URL}IMG-20260203-WA0004.jpg`,
     description: 'Complementary 2D performance frame. A perfect match for any enthusiast gallery or garage workspace.',
     specifications: ['Glass Front', 'Minimalist Design', 'Durable Backing', 'Wall Mount Ready'],
@@ -204,7 +212,7 @@ export const PRODUCTS: Product[] = [
     id: 'mc-3d-1',
     name: 'Ferrari SF90',
     segment: '3d-car',
-    price: 999,
+    price: 1449,
     image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM.jpeg`,
     description: 'A stunning 3D metal representation of the Ferrari SF90 Stradale.',
     specifications: ['Solid Metal', 'Hand Painted', '3D Pop-out Effect'],
@@ -214,7 +222,7 @@ export const PRODUCTS: Product[] = [
     id: 'mc-3d-2',
     name: 'BMW GT3',
     segment: '3d-car',
-    price: 999,
+    price: 1649,
     image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM%20(1).jpeg`,
     description: 'High-detail 3D art featuring the aggressive lines of the BMW GT3 racer.',
     specifications: ['Brushed Metal Finish', 'Premium Deep Frame', 'Limited Batch'],
@@ -224,7 +232,7 @@ export const PRODUCTS: Product[] = [
     id: 'mc-3d-3',
     name: 'McLaren P1',
     segment: '3d-car',
-    price: 999,
+    price: 1799,
     image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.55%20PM%20(2).jpeg`,
     description: 'The legendary McLaren P1 hypercar showcased in deep 3D metalwork.',
     specifications: ['Metallic Shadow Design', 'Floating Frame', 'Artisanal Build'],
@@ -234,7 +242,7 @@ export const PRODUCTS: Product[] = [
     id: 'mc-3d-4',
     name: 'Porsche',
     segment: '3d-car',
-    price: 999,
+    price: 1599,
     image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.56%20PM.jpeg`,
     description: 'Iconic Porsche styling captured in a premium 3D metal frame.',
     specifications: ['German Engineering Art', 'Sleek Aesthetic', 'Wall Ready'],
@@ -244,7 +252,7 @@ export const PRODUCTS: Product[] = [
     id: 'mc-3d-5',
     name: 'Supra',
     segment: '3d-car',
-    price: 999,
+    price: 1699,
     image: `${METAL_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.14.56%20PM%20(1).jpeg`,
     description: 'The fan-favorite Toyota Supra rendered in high-grade metal for enthusiasts.',
     specifications: ['JDM Legend Series', 'Highly Detailed', 'Exclusive Item'],
@@ -256,7 +264,7 @@ export const PRODUCTS: Product[] = [
     id: 'pr-3d-1',
     name: 'Shelby GT500',
     segment: '3d-car-premium',
-    price: 999,
+    price: 1999,
     image: `${PREMIUM_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.15.31%20PM.jpeg`,
     description: '100% Handcrafted Shelby GT500 metal frame with integrated LED effects and premium materials.',
     specifications: ['Hand Crafted', 'LED Glow System', 'Imported Durable Items', 'Elite Finish'],
@@ -266,7 +274,7 @@ export const PRODUCTS: Product[] = [
     id: 'pr-3d-2',
     name: 'Thar',
     segment: '3d-car-premium',
-    price: 999,
+    price: 1999,
     image: `${PREMIUM_CAR_BASE_URL}WhatsApp%20Image%202026-02-01%20at%207.15.31%20PM%20(1).jpeg`,
     description: 'The iconic Thar captured in a handcrafted 3D masterpiece with custom LED backlighting.',
     specifications: ['Bespoke Build', 'Dynamic LEDs', 'High-Grade Materials', 'Lifetime Frame'],
@@ -303,11 +311,3 @@ export const STATES = [
   'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 
   'Uttarakhand', 'West Bengal'
 ];
-
-/** Contact for order receiving and live support: +91 91754 88551 */
-export const CONTACT_WHATSAPP = "919175488551";
-
-/** Contact for payment and QR remains as prior: +91 7977687041 */
-export const UPI_ID = "7977687041@fam";
-
-export const UPI_QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=upi://pay?pa=${UPI_ID}%26pn=DYmartins%26cu=INR`;

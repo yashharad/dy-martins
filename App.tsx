@@ -18,9 +18,12 @@ import { CustomFramingContact } from './components/CustomFramingContact';
 import { ImagePreviewModal } from './components/ImagePreviewModal';
 import { SpecialEditionComingSoon } from './components/SpecialEditionComingSoon';
 import { PremiumSectionPopup } from './components/PremiumSectionPopup';
+import { FilterSidebar } from './components/FilterSidebar';
+import { BottomNav } from './components/BottomNav';
+import { OrdersModal } from './components/OrdersModal';
 import { PRODUCTS, SEGMENTS_INFO, CONTACT_WHATSAPP, UPI_QR_URL } from './constants';
 import { Product, CustomerDetails, CheckoutStep, Order, User, RegisteredUser, ProductSegment } from './types';
-import { ChevronLeft, RefreshCw, RefreshCcw } from 'lucide-react';
+import { ChevronLeft, RefreshCw, RefreshCcw, Filter, X } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -32,10 +35,16 @@ const App: React.FC = () => {
   const [isAdminView, setIsAdminView] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isPremiumPopupOpen, setIsPremiumPopupOpen] = useState(false);
+  const [isOrdersModalOpen, setIsOrdersModalOpen] = useState(false);
   const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'pushing'>('idle');
   const [notifications, setNotifications] = useState<ToastNotification[]>([]);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   
+  // Filter States
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
+  const [minRating, setMinRating] = useState<number | null>(null);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
   const [customQr, setCustomQr] = useState<string>(() => {
     return localStorage.getItem('fm_custom_qr') || UPI_QR_URL;
   });
@@ -91,7 +100,9 @@ const App: React.FC = () => {
 
   // Internal Back Logic for Sync with Browser History
   const handleStepBack = useCallback(() => {
-    if (isAdminView) {
+    if (isOrdersModalOpen) {
+      setIsOrdersModalOpen(false);
+    } else if (isAdminView) {
       setIsAdminView(false);
     } else if (currentStep === CheckoutStep.PAYMENT) {
       setCurrentStep(CheckoutStep.DETAILS);
@@ -101,8 +112,10 @@ const App: React.FC = () => {
       setCurrentStep(CheckoutStep.CATALOG);
     } else if (activeSegment) {
       setActiveSegment(null);
+      setPriceRange(null);
+      setMinRating(null);
     }
-  }, [isAdminView, currentStep, activeSegment]);
+  }, [isAdminView, currentStep, activeSegment, isOrdersModalOpen]);
 
   // Listen to mobile hardware/browser back button
   useEffect(() => {
@@ -220,7 +233,15 @@ const App: React.FC = () => {
     window.scrollTo(0,0);
   };
 
-  const filteredProducts = activeSegment ? PRODUCTS.filter(p => p.segment === activeSegment) : [];
+  const filteredProducts = PRODUCTS.filter(p => {
+    if (activeSegment && p.segment !== activeSegment) return false;
+    if (priceRange && (p.price < priceRange[0] || p.price > priceRange[1])) return false;
+    if (minRating) {
+      const avgRating = p.reviews.reduce((acc, r) => acc + r.rating, 0) / p.reviews.length;
+      if (avgRating < minRating) return false;
+    }
+    return true;
+  });
 
   return (
     <div className={`min-h-screen flex flex-col bg-gray-50 dark:bg-transparent theme-transition relative ${isInitializing ? 'overflow-hidden max-h-screen' : ''}`}>
@@ -257,7 +278,7 @@ const App: React.FC = () => {
         }}
       />
       
-      <main className={`flex-1 relative z-10 transition-all duration-700 ${isInitializing ? 'blur-xl opacity-0 scale-95' : 'blur-0 opacity-100 scale-100'}`}>
+      <main className={`flex-1 relative z-10 transition-all duration-700 ${isInitializing ? 'blur-xl opacity-0 scale-95' : 'blur-0 opacity-100 scale-100'} pb-24 md:pb-0`}>
         {isAdminView ? (
           <AdminDashboard 
             orders={orders} qrCodeUrl={customQr} onUpdateQr={handleUpdateQr} onSyncGlobal={syncAccountData}
@@ -266,7 +287,7 @@ const App: React.FC = () => {
         ) : (
           <>
             {currentStep === CheckoutStep.CATALOG && (
-              <div className="max-w-7xl mx-auto px-4 py-12">
+              <div className="max-w-screen-2xl mx-auto px-4 py-12">
                 {!activeSegment ? (
                   <>
                     <div className="mb-16 text-center">
@@ -278,9 +299,9 @@ const App: React.FC = () => {
                       </p>
                     </div>
 
-                    <OfferSection />
+                    <OfferSection id="catalog-offers" />
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                    <div id="segment-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                       {SEGMENTS_INFO.map(seg => (
                         <SegmentCard 
                           key={seg.id}
@@ -298,37 +319,80 @@ const App: React.FC = () => {
                   <SpecialEditionComingSoon onBack={() => window.history.back()} />
                 ) : (
                   <div className="animate-modal">
-                    <div className="flex items-center gap-4 mb-10">
-                       <button onClick={() => window.history.back()} className="p-3 bg-gray-100 dark:bg-gray-800 rounded-2xl hover:bg-amber-600 hover:text-white transition-all">
-                         <ChevronLeft className="w-6 h-6" />
-                       </button>
-                       <div>
-                         <h2 className="text-3xl font-black text-gray-900 dark:text-white leading-none tracking-tighter italic">
-                            {SEGMENTS_INFO.find(s => s.id === activeSegment)?.title}
-                         </h2>
-                         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2">Collection Highlights</p>
-                       </div>
+                    {/* Header Section */}
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                      <div className="flex items-center gap-4">
+                        <button onClick={() => window.history.back()} className="p-3 bg-gray-100 dark:bg-gray-800 rounded-2xl hover:bg-amber-600 hover:text-white transition-all">
+                          <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <div>
+                          <h2 className="text-3xl font-black text-gray-900 dark:text-white leading-none tracking-tighter italic">
+                              {SEGMENTS_INFO.find(s => s.id === activeSegment)?.title}
+                          </h2>
+                          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2">
+                            {filteredProducts.length} Results Found
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Mobile Filter Toggle */}
+                      <button 
+                        onClick={() => setIsMobileFiltersOpen(true)}
+                        className="md:hidden flex items-center justify-center gap-2 bg-white dark:bg-[#111114] border border-gray-100 dark:border-white/5 p-4 rounded-2xl shadow-sm text-xs font-black uppercase tracking-widest text-gray-600 dark:text-gray-400"
+                      >
+                        <Filter className="w-4 h-4" /> Filters
+                        {(priceRange || minRating) && <div className="w-2 h-2 rounded-full bg-amber-500" />}
+                      </button>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-                      {filteredProducts.map(p => (
-                        <ProductCard 
-                          key={p.id} 
-                          product={p} 
-                          onPreview={(url) => setPreviewImageUrl(url)}
-                          onViewDetails={(prod) => { 
-                            window.history.pushState(null, '');
-                            setSelectedProduct(prod); 
-                            setCurrentStep(CheckoutStep.PRODUCT_PAGE);
-                            window.scrollTo(0,0);
-                          }} 
+                    <div className="flex gap-10">
+                      {/* Desktop Sidebar */}
+                      <div className="hidden md:block w-72 flex-shrink-0 sticky top-32 h-[calc(100vh-160px)] rounded-[32px] overflow-hidden border border-gray-100 dark:border-white/5 shadow-2xl">
+                        <FilterSidebar 
+                          activeSegment={activeSegment}
+                          onSegmentChange={handleSegmentClick}
+                          priceRange={priceRange}
+                          onPriceChange={setPriceRange}
+                          minRating={minRating}
+                          onRatingChange={setMinRating}
                         />
-                      ))}
+                      </div>
+
+                      {/* Product Grid */}
+                      <div className="flex-1">
+                        {filteredProducts.length === 0 ? (
+                          <div className="bg-white dark:bg-[#111114] rounded-[48px] p-20 text-center border border-dashed border-gray-200 dark:border-white/5">
+                            <Filter className="w-16 h-16 text-gray-200 dark:text-gray-800 mx-auto mb-6" />
+                            <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2 italic">No Masterpieces Found</h3>
+                            <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xs mx-auto">Try adjusting your filters to find your perfect automotive frame.</p>
+                            <button 
+                              onClick={() => { setPriceRange(null); setMinRating(null); }}
+                              className="bg-amber-600 text-white font-black px-10 py-4 rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-amber-900/20"
+                            >
+                              Reset All Filters
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                            {filteredProducts.map(p => (
+                              <ProductCard 
+                                key={p.id} 
+                                product={p} 
+                                onPreview={(url) => setPreviewImageUrl(url)}
+                                onViewDetails={(prod) => { 
+                                  window.history.pushState(null, '');
+                                  setSelectedProduct(prod); 
+                                  setCurrentStep(CheckoutStep.PRODUCT_PAGE);
+                                  window.scrollTo(0,0);
+                                }} 
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
 
                     <InfoBanner />
-                    
-                    {/* Bespoke contact visible in segment browsing too */}
                     <CustomFramingContact />
                   </div>
                 )}
@@ -379,6 +443,56 @@ const App: React.FC = () => {
         )}
       </main>
 
+      {/* Mobile Nav Bar */}
+      {!isAdminView && (
+        <BottomNav 
+          currentStep={currentStep}
+          activeSegment={activeSegment}
+          isOrdersOpen={isOrdersModalOpen}
+          onHome={() => {
+            setCurrentStep(CheckoutStep.CATALOG);
+            setActiveSegment(null);
+            setIsOrdersModalOpen(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onCategories={() => {
+            setCurrentStep(CheckoutStep.CATALOG);
+            setActiveSegment(null);
+            setIsOrdersModalOpen(false);
+            setTimeout(() => {
+              document.getElementById('segment-grid')?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }}
+          onCart={() => setIsOrdersModalOpen(!isOrdersModalOpen)}
+          onAccount={() => {
+            if (user) {
+              // Show account info or just open orders
+              setIsOrdersModalOpen(true);
+            } else {
+              setIsLoginModalOpen(true);
+            }
+          }}
+        />
+      )}
+
+      {/* Mobile Filters Modal */}
+      {isMobileFiltersOpen && (
+        <div className="fixed inset-0 z-[250] bg-black/60 backdrop-blur-md flex justify-end">
+          <div className="w-[85%] max-w-sm h-full animate-modal">
+            <FilterSidebar 
+              activeSegment={activeSegment}
+              onSegmentChange={handleSegmentClick}
+              priceRange={priceRange}
+              onPriceChange={setPriceRange}
+              minRating={minRating}
+              onRatingChange={setMinRating}
+              isMobile={true}
+              onClose={() => setIsMobileFiltersOpen(false)}
+            />
+          </div>
+        </div>
+      )}
+
       {!isAdminView && (currentStep === CheckoutStep.CATALOG || currentStep === CheckoutStep.PRODUCT_PAGE) && <Footer />}
       
       <NotificationToast notifications={notifications} onRemove={id => setNotifications(prev => prev.filter(n => n.id !== id))} />
@@ -400,6 +514,12 @@ const App: React.FC = () => {
       <PremiumSectionPopup 
         isOpen={isPremiumPopupOpen} 
         onClose={() => setIsPremiumPopupOpen(false)} 
+      />
+
+      <OrdersModal 
+        isOpen={isOrdersModalOpen}
+        onClose={() => setIsOrdersModalOpen(false)}
+        orders={orders.filter(o => o.userId === (user?.id || 'guest'))}
       />
     </div>
   );

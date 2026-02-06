@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Product } from '../types';
 import { Star, CheckCircle2, Truck, ShieldCheck, Zap, ArrowRight, User as UserIcon, Calendar, Award, Maximize2 } from 'lucide-react';
@@ -19,7 +18,7 @@ export const ProductPage: React.FC<ProductPageProps> = ({ product, onBuyNow, onB
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 animate-modal theme-transition">
+    <div className="max-w-screen-2xl mx-auto px-4 py-12 animate-modal theme-transition">
       <div className="flex flex-col lg:flex-row gap-16 mb-24">
         {/* Left: Product Image Gallery */}
         <div className="flex-1">
